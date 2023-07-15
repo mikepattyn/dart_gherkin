@@ -23,29 +23,29 @@ enum ExecutionOrder { sequential, random, alphabetical }
 class TestConfiguration {
   /// The path(s) to all the features.
   /// All three [Pattern]s are supported: [RegExp], [String], [Glob].
-  final Iterable<Pattern> features;
+  Iterable<Pattern> features;
 
   /// The default feature language
-  final String featureDefaultLanguage;
+  String featureDefaultLanguage;
 
   /// a filter to limit the features that are run based on tags
   /// see https://docs.cucumber.io/cucumber/tag-expressions/ for expression syntax
-  final String? tagExpression;
+  String? tagExpression;
 
   /// The default step timeout - this can be override when definition a step definition
-  final Duration defaultTimeout;
+  Duration defaultTimeout;
 
   /// The execution order of features - this default to random to avoid any inter-test dependencies
-  final ExecutionOrder order;
+  ExecutionOrder order;
 
   /// The user defined step definitions that are matched with written steps in the features
-  final Iterable<StepDefinitionGeneric>? stepDefinitions;
+  Iterable<StepDefinitionGeneric>? stepDefinitions;
 
   /// Any user defined step parameters
-  final Iterable<CustomParameter<dynamic>>? customStepParameterDefinitions;
+  Iterable<CustomParameter<dynamic>>? customStepParameterDefinitions;
 
   /// Hooks that are run at certain points in the execution cycle
-  final Iterable<Hook>? hooks;
+  Iterable<Hook>? hooks;
 
   /// a list of reporters to use.
   /// Built-in reporters:
@@ -54,28 +54,28 @@ class TestConfiguration {
   ///   - TestRunSummaryReporter
   ///   - JsonReporter
   /// Custom reporters can be created by implementing [Reporter]
-  final Iterable<Reporter> reporters;
+  Iterable<Reporter> reporters;
 
   /// An optional function to create a world object for each scenario.
-  final CreateWorld? createWorld;
+  CreateWorld? createWorld;
 
   // Lists feature files paths, which match [features] patterns.
-  final FeatureFileMatcher featureFileMatcher;
+  FeatureFileMatcher featureFileMatcher;
 
   // The feature file reader.
   // Takes files/resources paths from [featureFileIndexer] and returns their content as String.
-  final FeatureFileReader featureFileReader;
+  FeatureFileReader featureFileReader;
 
   /// the program will stop after any test failed
-  final bool stopAfterTestFailed;
+  bool stopAfterTestFailed;
 
   /// When a step fails, it will retry this number of times.
   /// When it still fails after these tries the step will fail.
-  final int stepMaxRetries;
+  int stepMaxRetries;
 
   /// When a step fails, it will wait this long before retrying.
   /// For instance, you know that when it fails, it can take a bit longer (async).
-  final Duration retryDelay;
+  Duration retryDelay;
 
   TestConfiguration({
     this.features = const <Pattern>[],
@@ -99,8 +99,7 @@ class TestConfiguration {
   TestConfiguration prepare() => this;
 
   /// used to get a new instance of an attachment manager class that is passed to the World context
-  CreateAttachmentManager get getAttachmentManager =>
-      (_) => Future.value(AttachmentManager());
+  CreateAttachmentManager get getAttachmentManager => (_) => Future.value(AttachmentManager());
 
   /// Provide a configuration object with default settings such as the reports and feature file location
   /// Additional setting on the configuration object can be set on the returned instance.
